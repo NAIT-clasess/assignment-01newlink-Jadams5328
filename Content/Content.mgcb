@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:ant.png
 
+#begin GameFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:GameFont.spritefont
+
 #begin pancake1.png
 /importer:TextureImporter
 /processor:TextureProcessor

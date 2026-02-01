@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -18,6 +19,7 @@ public class Game1 : Game
     SimpleAnimation antAnimation;
     SimpleAnimation walkingAnimation;
 
+    SpriteFont gameFont;
     Vector2 antPosition = new Vector2(400, 400);
     float antSpeed = 100f;
     bool movingRight = true;
@@ -47,7 +49,7 @@ public class Game1 : Game
         antAnimation = new SimpleAnimation(antTexture, 96, 101, 4, 6f);
         Texture2D walkingTexture = Content.Load<Texture2D>("walking");
         walkingAnimation = new SimpleAnimation(walkingTexture, 75, 102, 4, 6f);
-
+        gameFont = Content.Load<SpriteFont>("gameFont");
     }
 
     protected override void Update(GameTime gameTime)
@@ -87,6 +89,8 @@ public class Game1 : Game
 
         antAnimation.Draw(_spriteBatch, antPosition, SpriteEffects.None);
         walkingAnimation.Draw(_spriteBatch, new Vector2(200, 200), SpriteEffects.None);
+
+        _spriteBatch.DrawString(gameFont, "Assignment 1- Animation and Input in Monogame using C#", new Vector2(20, 20), Color.Black);
         _spriteBatch.End();
 
         base.Draw(gameTime);
