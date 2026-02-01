@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.ComponentModel;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,7 +11,7 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
 
     Texture2D picture;
-
+    Texture2D background;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -30,8 +31,9 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
+        background = Content.Load<Texture2D>("picnic");
+        picture = Content.Load<Texture2D>("pancake1");
 
-        picture = Content.Load<Texture2D>("picnic");
     }
 
     protected override void Update(GameTime gameTime)
@@ -49,7 +51,13 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // TODO: Add your drawing code here
-        
+        _spriteBatch.Begin();
+
+        _spriteBatch.Draw(background, new Rectangle(0, 0, 800, 600), Color.White);
+        _spriteBatch.Draw(picture, new Vector2(20, 100), Color.White);
+
+        _spriteBatch.End();
+
         base.Draw(gameTime);
     }
 }
