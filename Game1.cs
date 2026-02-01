@@ -17,6 +17,9 @@ public class Game1 : Game
 
     SimpleAnimation antAnimation;
 
+    Vector2 antPosition = new Vector2(400, 400);
+    float antSpeed = 100f;
+    bool movingRight = true;
     
     public Game1()
     {
@@ -52,6 +55,19 @@ public class Game1 : Game
         // TODO: Add your update logic here
         antAnimation.Update(gameTime);
 
+        if (movingRight)
+        {
+            antPosition.X += antSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (antPosition.X > _graphics.PreferredBackBufferWidth - 96)
+            movingRight = false;
+        }
+        else
+        {
+            antPosition.X -= antSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (antPosition.X <0)
+                movingRight = true;
+        }
+
         base.Update(gameTime);
     }
 
@@ -65,7 +81,7 @@ public class Game1 : Game
         _spriteBatch.Draw(background, new Rectangle(0, 0, 800, 600), Color.White);
         _spriteBatch.Draw(picture, new Vector2(20, 100), Color.White);
 
-        antAnimation.Draw(_spriteBatch, new Vector2(400, 300), SpriteEffects.None);
+        antAnimation.Draw(_spriteBatch, antPosition, SpriteEffects.None);
         _spriteBatch.End();
 
         base.Draw(gameTime);
