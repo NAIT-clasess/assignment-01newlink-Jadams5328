@@ -16,6 +16,7 @@ public class Game1 : Game
     Texture2D background;
 
     SimpleAnimation antAnimation;
+    SimpleAnimation walkingAnimation;
 
     Vector2 antPosition = new Vector2(400, 400);
     float antSpeed = 100f;
@@ -44,6 +45,8 @@ public class Game1 : Game
         picture = Content.Load<Texture2D>("pancake1");
         Texture2D antTexture = Content.Load<Texture2D>("ant");
         antAnimation = new SimpleAnimation(antTexture, 96, 101, 4, 6f);
+        Texture2D walkingTexture = Content.Load<Texture2D>("walking");
+        walkingAnimation = new SimpleAnimation(walkingTexture, 75, 102, 4, 6f);
 
     }
 
@@ -54,6 +57,7 @@ public class Game1 : Game
 
         // TODO: Add your update logic here
         antAnimation.Update(gameTime);
+        walkingAnimation.Update(gameTime);
 
         if (movingRight)
         {
@@ -82,6 +86,7 @@ public class Game1 : Game
         _spriteBatch.Draw(picture, new Vector2(20, 100), Color.White);
 
         antAnimation.Draw(_spriteBatch, antPosition, SpriteEffects.None);
+        walkingAnimation.Draw(_spriteBatch, new Vector2(200, 200), SpriteEffects.None);
         _spriteBatch.End();
 
         base.Draw(gameTime);
