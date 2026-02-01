@@ -26,7 +26,7 @@ public class Game1 : Game
     
     Vector2 walkingPosition = new Vector2 (300, 300);
     Vector2 walkingDirection = Vector2.Zero;
-    float walkingSpeed = 150f;
+    float walkingSpeed = 15f;
     float moveInterval = 0.15f;
 
 
