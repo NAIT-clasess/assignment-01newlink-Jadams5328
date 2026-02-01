@@ -12,18 +12,19 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-
+    //Static Images VVV
     Texture2D picture;
     Texture2D background;
-
+    //Simple Animation VVV
     SimpleAnimation antAnimation;
     SimpleAnimation walkingAnimation;
-
+    //Text VVV
     SpriteFont gameFont;
+    //Ant Movement VVV
     Vector2 antPosition = new Vector2(400, 400);
     float antSpeed = 100f;
     bool movingRight = true;
-    
+    //Keyboard Controlled Movement VVV
     Vector2 walkingPosition = new Vector2 (300, 300);
     Vector2 walkingDirection = Vector2.Zero;
     float walkingSpeed = 15f;
@@ -49,12 +50,17 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
+        //Textures VVV        
         background = Content.Load<Texture2D>("picnic");
         picture = Content.Load<Texture2D>("pancake1");
         Texture2D antTexture = Content.Load<Texture2D>("ant");
-        antAnimation = new SimpleAnimation(antTexture, 96, 101, 4, 6f);
         Texture2D walkingTexture = Content.Load<Texture2D>("walking");
+        
+        //Setting up Animation VVV
+        antAnimation = new SimpleAnimation(antTexture, 96, 101, 4, 6f);
         walkingAnimation = new SimpleAnimation(walkingTexture, 75, 102, 4, 6f);
+        
+        //Text
         gameFont = Content.Load<SpriteFont>("gameFont");
     }
 
@@ -64,7 +70,7 @@ public class Game1 : Game
             Exit();
 
         // TODO: Add your update logic here
-
+        //Keyboard Movement VVV
                 KeyboardState state = Keyboard.GetState();
 
         if (state.IsKeyDown(Keys.Up)) walkingDirection = new Vector2(0, -1);
@@ -74,8 +80,10 @@ public class Game1 : Game
 
         Movewalking(gameTime);
 
-        antAnimation.Update(gameTime);
         walkingAnimation.Update(gameTime);
+        //Ant Movement
+        antAnimation.Update(gameTime);
+
 
         
         
@@ -94,7 +102,7 @@ public class Game1 : Game
 
         base.Update(gameTime);
     }
-    
+    //Apply Movement
     private void Movewalking(GameTime gameTime)
     {
      walkingPosition += walkingDirection * walkingSpeed * moveInterval;  
