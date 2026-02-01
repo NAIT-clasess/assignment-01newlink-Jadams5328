@@ -24,6 +24,12 @@ public class Game1 : Game
     float antSpeed = 100f;
     bool movingRight = true;
     
+    Vector2 walkingPosition = new Vector2 (300, 300);
+    Vector2 walkingDirection = Vector2.Zero;
+    float walkingSpeed = 150f;
+    float moveInterval = 0.15f;
+
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -58,9 +64,21 @@ public class Game1 : Game
             Exit();
 
         // TODO: Add your update logic here
+
+                KeyboardState state = Keyboard.GetState();
+
+        if (state.IsKeyDown(Keys.Up)) walkingDirection = new Vector2(0, -1);
+        if (state.IsKeyDown(Keys.Down)) walkingDirection = new Vector2(0, 1);
+        if (state.IsKeyDown(Keys.Left)) walkingDirection = new Vector2(-1, 0);
+        if (state.IsKeyDown(Keys.Right))  walkingDirection = new Vector2(1, 0);
+
+        Movewalking(gameTime);
+
         antAnimation.Update(gameTime);
         walkingAnimation.Update(gameTime);
 
+        
+        
         if (movingRight)
         {
             antPosition.X += antSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -76,6 +94,11 @@ public class Game1 : Game
 
         base.Update(gameTime);
     }
+    
+    private void Movewalking(GameTime gameTime)
+    {
+     walkingPosition += walkingDirection * walkingSpeed * moveInterval;  
+    }
 
     protected override void Draw(GameTime gameTime)
     {
@@ -88,9 +111,12 @@ public class Game1 : Game
         _spriteBatch.Draw(picture, new Vector2(20, 100), Color.White);
 
         antAnimation.Draw(_spriteBatch, antPosition, SpriteEffects.None);
-        walkingAnimation.Draw(_spriteBatch, new Vector2(200, 200), SpriteEffects.None);
+        walkingAnimation.Draw(_spriteBatch, walkingPosition, SpriteEffects.None);
 
         _spriteBatch.DrawString(gameFont, "Assignment 1- Animation and Input in Monogame using C#", new Vector2(20, 20), Color.Black);
+
+        
+
         _spriteBatch.End();
 
         base.Draw(gameTime);
